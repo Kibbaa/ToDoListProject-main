@@ -133,11 +133,18 @@
   outline: none;
   background: linear-gradient(
     90deg,
-    rgba(93, 12, 255, 1) 0%,
-    rgba(155, 0, 250, 1) 100%
+    rgba(93, 12, 255, 0.7) 0%,
+    rgba(155, 0, 250, 0.7) 100%
   );
   color: #fff;
   text-transform: capitalize;
+}
+.todo-button-delete:hover{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
 }
 
 .button-by-done-all{
@@ -224,12 +231,19 @@
   outline: none;
   background: linear-gradient(
     90deg,
-    rgba(93, 12, 255, 1) 0%,
-    rgba(155, 0, 250, 1) 100%
+    rgba(93, 12, 255, 0.7) 0%,
+    rgba(155, 0, 250, 0.7) 100%
   );
   color: #fff;
   text-transform: capitalize;
   margin-right: 4px;
+}
+.todo-button-edit:hover{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
 }
 
 .todo-button-save{
@@ -241,22 +255,31 @@
   outline: none;
   background: linear-gradient(
     90deg,
-    rgba(93, 12, 255, 1) 0%,
-    rgba(155, 0, 250, 1) 100%
+    rgba(93, 12, 255, 0.7) 0%,
+    rgba(155, 0, 250, 0.7) 100%
   );
   color: #fff;
   text-transform: capitalize;
+  font-weight: 700;
+}
+.todo-button-save:hover{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
 }
 
 .task-window{
   padding: 14px 32px 14px 16px;
   border-radius: 4px;
-  
+  font-weight: 700;
   outline: none;
   width: 220px;
   background: transparent;
   color: #fff;
   flex: 1;
+  overflow: hidden
 }
 
 .todo-button-selector {
@@ -266,15 +289,20 @@
   outline: none;
   background: linear-gradient(
     90deg,
-    rgba(93, 12, 255, 1) 0%,
-    rgba(155, 0, 250, 1) 100%
+    rgba(93, 12, 255, 0.7) 0%,
+    rgba(155, 0, 250, 0.7) 100%
   );
   color: #fff;
   text-transform: capitalize;
   border-radius: 4px;
   margin: 0 5px 0 5px;
-  
-
+}
+.todo-button-selector:hover{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
 }
 .input-edit{   
   padding: 14px 32px 14px 16px;
@@ -299,4 +327,99 @@ align-items: center;
 .buttons-date button{
   border: none;
   cursor: pointer;
+}
+
+.paginate-item-li{
+  list-style-type: none;
+}
+.btn-prev-item{
+  display: flex;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 0.7) 0%,
+    rgba(155, 0, 250, 0.7) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 700;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 4px;
+  transform: scale(-1, 1);
+}
+.btn-prev-item:hover{
+  display: flex;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 700;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 4px;
+  transform: scale(-1, 1);
+}
+.btn-next-item{
+  display: flex;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 0.7) 0%,
+    rgba(155, 0, 250, 0.7) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 700;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 4px;
+}
+.btn-next-item:hover{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+}
+.paginate-single-item{
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 0.7) 0%,
+    rgba(155, 0, 250, 0.7) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  margin: 2px;
+  padding: 6px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+
+}
+.paginate-single-item:hover{background: linear-gradient(
+  270deg,
+  rgba(93, 12, 255, 1) 0%,
+  rgba(155, 0, 250, 1) 100%
+);
+}
+.pagination-window{
+  display: flex;
+  margin: 20px;
+  justify-content: space-between;
+}
+.paginate-all-items{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

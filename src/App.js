@@ -22,6 +22,22 @@ function App() {
   const [value, setValue] = useState('');
   const [filterDate, setFilterDate] = useState('up');
   const [currentPage, setCurrentPage] = useState(1)
+
+
+  const sortedArr = ((todos) => {
+    
+    return []
+  })()
+  const filteredArr = (() => {
+
+    return []
+  })()
+
+  const parginatedArr = (() => {
+    
+    return []
+  })()
+
     useEffect( () => {
       setFiltered(todos)
     },[todos]);
@@ -87,15 +103,7 @@ function saveTodoEdit (id){
   setTodo(newTodo);
   setEdit(null);
   };
-//FILTER BY DONE/UNDONE FUNC  
-function todoFilter(status) {
-  if(status === 'all'){
-      setFiltered(todos)
-  } else{
-      let newTodo = [...todos].filter(item => item.status === status)
-      setFiltered(newTodo)
-  }
-};
+
 //Filter by Date
 function filterByDate(){
   if(filterDate === 'up'){
@@ -108,17 +116,18 @@ function filterByDate(){
   };
 //Pagination
  const NumberOfPages = [];
- const todosPerPage = 5
+ const todosPerPage = 7
  const LastIndexTodo = currentPage * todosPerPage
  const FirtIndexTodo = LastIndexTodo - todosPerPage
  const pagi = filtered.slice(FirtIndexTodo, LastIndexTodo);
  for (let i=1; i <= Math.ceil(todos.length / todosPerPage); i++ ){
   NumberOfPages.push(i) 
  };
- const handlerPagination = pageNumber => setCurrentPage(pageNumber)
+//  const handlerPagination
  const previousPage = () => setCurrentPage(prev=>prev-1);
  const nextPage = () => setCurrentPage(prev=>prev+1);
-console.log(typeof handlerPagination)
+ const paginateHandler = (number) => setCurrentPage(number)
+
   return (
     <div className="App-all">
         <Header />
@@ -141,7 +150,7 @@ console.log(typeof handlerPagination)
         setFilterDate={setFilterDate} />
         <Pagination
         NumberOfPages={NumberOfPages}
-        handlerPagination={handlerPagination}
+        paginateHandler={paginateHandler}
         previousPage={previousPage}
         nextPage={nextPage}
          />
