@@ -1,8 +1,7 @@
 import React from "react";
 
 function TodoList ({edit,editTodo,deleteTodo,
-    statusTodo,saveTodoEdit,todoFilter,setValueEdit,valueEdit,
-    setFilterDate, filtered, pagi
+    statusTodo,saveTodoEdit,setValueEdit,valueEdit, todos,PaginationArray
      }){  
     // useEffect(()=>{
     //     const newTodos = todos.map(todo=> todosStatus.status.includes(todo.status)).sort(a,b,func(todosStatus.time))
@@ -24,19 +23,8 @@ function TodoList ({edit,editTodo,deleteTodo,
 //     }
     return(
         <div className="task-pannels">
-            <div className="sort-buttons">
-            <div className="buttons-date">
-                <button className="button-date-up" onClick={ () => setFilterDate('up')} ><span className="material-symbols-outlined">arrow_upward</span></button>
-                <button className="button-date-down" onClick={ () => setFilterDate('down')}><span className="material-symbols-outlined">arrow_downward</span></button>
-            </div>
-            <div className="buttons-by-done">
-                <button className="button-by-done-all" onClick={ () => todoFilter('all') }>All</button>
-                <button className="button-by-done-open" onClick={ () => todoFilter(true) }>Open</button>
-                <button className="button-by-done-cloused" onClick={ () => todoFilter(false)}>Closed</button>
-            </div>
-            </div>
         {
-            pagi.map( item => (
+            PaginationArray().map( item => (
                 <div className="single-task" key = {item.id}>
                     {
                     edit == item.id ? 
