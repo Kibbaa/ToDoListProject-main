@@ -126,6 +126,7 @@
 }
 
 .todo-button-delete {
+  margin-right: 3px;
   padding: 3px ;
   border-radius: 4px;
   border: none;
@@ -247,8 +248,7 @@
 }
 
 .todo-button-save{
-  padding: 7px;
-  margin-right: 4px;
+  padding: 6px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -282,27 +282,8 @@
   overflow: hidden
 }
 
-.todo-button-selector {
-  padding: 3px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  background: linear-gradient(
-    90deg,
-    rgba(93, 12, 255, 0.7) 0%,
-    rgba(155, 0, 250, 0.7) 100%
-  );
-  color: #fff;
-  text-transform: capitalize;
-  border-radius: 4px;
-  margin: 0 5px 0 5px;
-}
-.todo-button-selector:hover{
-  background: linear-gradient(
-    90deg,
-    rgba(93, 12, 255, 1) 0%,
-    rgba(155, 0, 250, 1) 100%
-  );
+.checkbox-status-item {
+  
 }
 .input-edit{   
   padding: 14px 32px 14px 16px;
@@ -312,6 +293,7 @@
   color: #fff;
   border: none;
   outline: none;
+  font-weight: 700;
   
 }
 
@@ -422,4 +404,18 @@ align-items: center;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.span-chechbox{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #5d0cff;
+  
+}
+.checkbox-status-item{
+  position: absolute;
+  -webkit-appearance: none;
+  appearance: none;
+  
 }

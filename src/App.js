@@ -9,9 +9,9 @@ import './App.css';
 function App() {
   //STATES
   const [todos, setTodo] = useState([
-    {id:1, title:'1', status: true, date: 1 },
-    {id:2, title:'2', status: true, date: 2},
-    {id:3, title:'3', status: true, date: 3},
+    {id:1, title:'1', status: false, date: 1 },
+    {id:2, title:'2', status: false, date: 2},
+    {id:3, title:'3', status: false, date: 3},
     {id:4, title:'4', status: false, date: 4},
     {id:5, title:'5', status: false, date: 5},
     {id:6, title:'6', status: false, date: 6},
@@ -34,26 +34,34 @@ function App() {
     return [...todos].sort( (a, b) => b.date-a.date )
   };
   // Sort by date with pag
-  const sortedArrayTodos = (() => {
+  const sortedArrayTodos = () => {
     if (sortTypeSelected === 'up'){
       return dateUp();
     } else if(sortTypeSelected === 'down'){
       return dateDown();
     }
-  })
+  }
 
-  //STATUS FUNC
-// function statusTodo(id){
-//   const newTodo = todos.filter( item => {
-//       if( item.id == id) {
-//           item.status = !item.status
-//       }
-//       return item
+  // STATUS FUNC
+function changeStatus(id){
+  const newTodo = todos.filter( item => {
+      if( item.id == id) {
+          item.status = !item.status
+      }
+      return item
       
-//   });
-//   setTodo(newTodo)
-// };
-//Handler for filter todos
+  });
+  console.log(newTodo);
+  setTodo(newTodo)
+};
+// function changeStatus (id) {
+//   setTodo(todos.filter(item =>{
+//     if(item.id == id){
+//       item.status = !item.status
+//     }
+//   }))
+// }
+// Handler for filter todos
   const filterHandler = (arr) => {
     if(status === 'done'){
       return arr.filter(todo => todo.status === false)
@@ -64,27 +72,24 @@ function App() {
     }
   }
   //Filter FunC
-  const filteredArr = (() => {
+  const filteredArr = () => {
     const FilteredTodos = filterHandler(sortedArrayTodos())
     return FilteredTodos
-  })
+  }
 
 //PAGINATION
   const todosPerPage = 7;
-  const NumberOfPages = [];
-  const PaginationArray = (() =>{
-    for (let i=1; i <= Math.ceil(filteredArr().length / todosPerPage); i++ ){
-      NumberOfPages.push(i) 
-     };
+  const numberOfPages = [];
+  const array = filteredArr();
+    for (let i=1; i <= Math.ceil(array.length / todosPerPage); i++ ){
+      numberOfPages.push(i) 
+     }
   const LastIndexTodo = currentPage * todosPerPage
   const FirtIndexTodo = LastIndexTodo - todosPerPage
-  return filteredArr().slice(FirtIndexTodo, LastIndexTodo);
- })
- 
-//  const handlerPagination
- const previousPage = () => setCurrentPage(prev=>prev-1);
- const nextPage = () => setCurrentPage(prev=>prev+1);
-  
+  const paginationArray = array.slice(FirtIndexTodo, LastIndexTodo)
+
+  const previousPage = () => setCurrentPage(prev=>prev-1);
+  const nextPage = () => setCurrentPage(prev=>prev+1);
   const paginateHandler = (number) => setCurrentPage(number)
 
   //ADD TODO FUNCTION
@@ -101,6 +106,7 @@ function App() {
               addingDate: ' ' + new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
          }
       ]);
+      setValue('')
       e.preventDefault()
     };
 //DELETE TODO FUNC
@@ -113,15 +119,6 @@ function editTodo (id, title) {
   setValueEdit(title)
   setEdit(id)
 };
-// //FILTER BY DONE/UNDONE
-// function todoFilter(status) {
-//   if(status === 'all'){
-//       setFiltered(todos)
-//   } else{
-//       let newTodo = [...todos].filter(item => item.status === status)
-//       setFiltered(newTodo)
-//   }
-// };
 //SAVE EDIT TODO FUNC
 function saveTodoEdit (id){
   const newTodo = [...todos].map(item => {
@@ -134,29 +131,6 @@ function saveTodoEdit (id){
   setEdit(null);
   };
 
-//Filter by Date
-// function filterByDate(){
-//   if(filterDate === 'up'){
-//       const dateUp = [...todos].sort( (a, b) => a.date-b.date )
-//           setTodo(dateUp);
-//   } else if (filterDate === 'down'){
-//       const dateDown = [...todos].sort( (a, b) => b.date-a.date )
-//           setTodo(dateDown)
-//   }
-//   };
-// //Pagination
-//  const NumberOfPages = [];
-//  const todosPerPage = 7
-//  const LastIndexTodo = currentPage * todosPerPage
-//  const FirtIndexTodo = LastIndexTodo - todosPerPage
-//  const pagi = filtered.slice(FirtIndexTodo, LastIndexTodo);
-//  for (let i=1; i <= Math.ceil(todos.length / todosPerPage); i++ ){
-//   NumberOfPages.push(i) 
-//  };
-// //  const handlerPagination
-//  const previousPage = () => setCurrentPage(prev=>prev-1);
-//  const nextPage = () => setCurrentPage(prev=>prev+1);
-//  const paginateHandler = (number) => setCurrentPage(number)
 useEffect(()=>{
   filteredArr()
 },[status])
@@ -164,7 +138,6 @@ useEffect(()=>{
 useEffect(() =>{
   setTodo(sortedArrayTodos())
 },[sortTypeSelected]);
-
   return (
     <div className="App-all">
         <Header 
@@ -185,17 +158,19 @@ useEffect(() =>{
         edit = {edit}
         editTodo ={editTodo}
         deleteTodo={deleteTodo}
-        PaginationArray={PaginationArray}
+        paginationArray={paginationArray}
         saveTodoEdit={saveTodoEdit}
         setValueEdit={setValueEdit}
         valueEdit={valueEdit}
+        changeStatus={changeStatus}
        />
 
         <Pagination
-        NumberOfPages={NumberOfPages}
+        numberOfPages={numberOfPages}
         paginateHandler={paginateHandler}
         previousPage={previousPage}
         nextPage={nextPage}
+        currentPage={currentPage}
          />
     </div>
   );

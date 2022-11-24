@@ -3,7 +3,6 @@ import React from "react";
 function AddTodo( { saveTodo, value, inputHandler } ){
     return(
         <form>
-            
             <input
             className="todo-input" 
             placeholder="Add task"
