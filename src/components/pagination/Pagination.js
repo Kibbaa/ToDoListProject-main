@@ -5,7 +5,9 @@ function Pagination({nextPage, previousPage, paginateHandler,numberOfPages, curr
 
   
   return(
+    
       <div className="pagination-window">  
+      
             <button className='btn-prev-item' disabled={currentPage == 1} onClick={previousPage}><span className="material-symbols-outlined">arrow_forward_ios</span></button>
                <ul className="paginate-all-items">
                { numberOfPages.map(number =>(
@@ -19,6 +21,7 @@ function Pagination({nextPage, previousPage, paginateHandler,numberOfPages, curr
                </ul>
             <button className="btn-next-item" disabled={currentPage == numberOfPages.length} onClick={nextPage}><span className="material-symbols-outlined">arrow_forward_ios</span></button>
       </div>
+    
     )
 }
 

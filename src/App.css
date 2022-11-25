@@ -406,16 +406,18 @@ align-items: center;
   justify-content: center;
 }
 
-.span-chechbox{
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #5d0cff;
-  
-}
+
 .checkbox-status-item{
-  position: absolute;
-  -webkit-appearance: none;
-  appearance: none;
-  
+ height: 30px;
+ width: 30px;
+}
+.checkbox-div{
+  display: flex;
+  align-items: center;
+ justify-content: center;
+  background-color: #5d0cff;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  margin-left: 4px;
 }

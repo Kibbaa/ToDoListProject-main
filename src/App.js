@@ -5,6 +5,7 @@ import TodoList from './components/TodoList/TodoList';
 import Pagination from './components/pagination/Pagination';
 import ButtonsSort from './components/sort buttons/ButtonsSort';
 import './App.css';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   //STATES
@@ -43,24 +44,16 @@ function App() {
   }
 
   // STATUS FUNC
-function changeStatus(id){
-  const newTodo = todos.filter( item => {
-      if( item.id == id) {
-          item.status = !item.status
-      }
-      return item
-      
-  });
-  console.log(newTodo);
-  setTodo(newTodo)
-};
-// function changeStatus (id) {
-//   setTodo(todos.filter(item =>{
-//     if(item.id == id){
-//       item.status = !item.status
-//     }
-//   }))
-// }
+  function changeStatus(id){
+    const newTodo = todos.filter( item => {
+        if( item.id == id) {
+            item.status = !item.status
+        }
+        return item
+        
+    });
+    setTodo(newTodo)
+  };
 // Handler for filter todos
   const filterHandler = (arr) => {
     if(status === 'done'){
@@ -87,7 +80,7 @@ function changeStatus(id){
   const LastIndexTodo = currentPage * todosPerPage
   const FirtIndexTodo = LastIndexTodo - todosPerPage
   const paginationArray = array.slice(FirtIndexTodo, LastIndexTodo)
-
+ console.log(paginationArray);
   const previousPage = () => setCurrentPage(prev=>prev-1);
   const nextPage = () => setCurrentPage(prev=>prev+1);
   const paginateHandler = (number) => setCurrentPage(number)
@@ -99,7 +92,7 @@ function changeStatus(id){
   const saveTodo = (e) => {
     setTodo([
         ...todos, {
-              id: todos.length + 1,
+              id: uuidv4(),
               title: value,
               status: false,
               date: Date.now(),
@@ -140,9 +133,9 @@ useEffect(() =>{
 },[sortTypeSelected]);
   return (
     <div className="App-all">
-        <Header 
-        />
-
+      
+        <Header />
+        
         <AddTodo 
         value={value}
         inputHandler={inputHandler}
@@ -164,15 +157,17 @@ useEffect(() =>{
         valueEdit={valueEdit}
         changeStatus={changeStatus}
        />
-
+      {(numberOfPages.length > 0) ?(
         <Pagination
         numberOfPages={numberOfPages}
         paginateHandler={paginateHandler}
         previousPage={previousPage}
         nextPage={nextPage}
         currentPage={currentPage}
-         />
+         />  
+      ): ''}
     </div>
+    
   );
   }
 

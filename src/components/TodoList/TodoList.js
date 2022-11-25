@@ -2,20 +2,25 @@ import React from "react";
 
 function TodoList ({edit , editTodo, deleteTodo,
      saveTodoEdit, setValueEdit, valueEdit,
-      changeStatus,paginationArray
+      changeStatus,paginationArray,
      }){  
+
+
+        // const index = array.findIndex(item => item.id === id);
+        //array[index].status === !array[index].statusedit
     return(
         <div className="task-pannels">
         {
             paginationArray.map(item => (
+                
                 <div className="single-task" key = {item.id}>
-                    {<div>
-                       <input id="input-checkbox" checked={item.status ? true:false}
-                       className="checkbox-status-item" onChange={() => changeStatus(item.id)} type="checkbox"/>
-                       <span className="span-chechbox">
-                       </span>
-                     </div>
-                    }
+                    {
+                     <div className="checkbox-div">
+                       <input onChange={()=> changeStatus(item.id)} id="input-checkbox" checked={item.status}
+                       className="checkbox-status-item" type="checkbox"/>
+                       </div>
+                    }  
+                    
                     {
                     edit == item.id ? 
                         <div>
@@ -46,6 +51,7 @@ function TodoList ({edit , editTodo, deleteTodo,
                     }
                     
                 </div>
+            
             ))
         }
         </div>
