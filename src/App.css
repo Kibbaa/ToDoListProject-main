@@ -187,7 +187,7 @@
 );
 }
 
-.button-by-done-cloused{
+.button-by-done-closed{
   background: linear-gradient(
     90deg,
     rgba(93, 12, 255, 0.7) 0%,
@@ -200,7 +200,7 @@
   border-top-right-radius: 4px;
   font-weight: 700;
 }
-.button-by-done-cloused:hover{
+.button-by-done-closed:hover{
   background: linear-gradient(
     90deg,
     rgba(93, 12, 255, 1) 0%,
@@ -275,16 +275,14 @@
   border-radius: 4px;
   font-weight: 700;
   outline: none;
-  width: 220px;
+  width: 353px;
   background: transparent;
   color: #fff;
   flex: 1;
   overflow: hidden
 }
 
-.checkbox-status-item {
-  
-}
+
 .input-edit{   
   padding: 14px 32px 14px 16px;
   border-radius: 4px 0 0 4px;
@@ -420,4 +418,78 @@ align-items: center;
   height: 25px;
   border-radius: 4px;
   margin-left: 4px;
+}
+
+.button-date-up-select{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-weight: 700;
+  padding: 4px;
+}
+.button-date-down-select{
+  background: linear-gradient(
+    270deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-weight: 700;
+  padding: 4px;
+
+}
+.button-by-done-all-select{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  padding: 12px 12px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-weight: 700;
+}
+.button-by-done-open-select{
+  background: linear-gradient(
+    270deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  padding: 12px 12px;
+  font-weight: 700;
+}
+.button-by-done-closed-select{
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  padding: 12px 12px;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  font-weight: 700;
+}
+.edit{
+  display: none;
+}
+.task-delete-window{
+  display: flex;
+}
+.input-edit-single-task{
+  display: flex;
 }

@@ -57,9 +57,9 @@ function App() {
 // Handler for filter todos
   const filterHandler = (arr) => {
     if(status === 'done'){
-      return arr.filter(todo => todo.status === false)
+      return arr.filter(todo => todo.status === true)
     } else if(status === 'undone'){
-      return arr.filter(todo => todo.status === true)}
+      return arr.filter(todo => todo.status === false)}
      else if (status === 'all'){
       return arr
     }
@@ -80,7 +80,6 @@ function App() {
   const LastIndexTodo = currentPage * todosPerPage
   const FirtIndexTodo = LastIndexTodo - todosPerPage
   const paginationArray = array.slice(FirtIndexTodo, LastIndexTodo)
- console.log(paginationArray);
   const previousPage = () => setCurrentPage(prev=>prev-1);
   const nextPage = () => setCurrentPage(prev=>prev+1);
   const paginateHandler = (number) => setCurrentPage(number)
@@ -106,12 +105,20 @@ function App() {
 function deleteTodo(id) {
   const newTodo = todos.filter( item => item.id !== id);
   setTodo(newTodo);
+  if (paginationArray.length === 1){
+    if (currentPage > 1)
+    setCurrentPage(prev => prev - 1)
+  }
 };
 //EDIT TODO FUNC
 function editTodo (id, title) {
   setValueEdit(title)
   setEdit(id)
 };
+// const inputHandler = (e) => {
+//   e.target.focus()
+//   e.target.onblur()
+// }
 //SAVE EDIT TODO FUNC
 function saveTodoEdit (id){
   const newTodo = [...todos].map(item => {
@@ -126,14 +133,14 @@ function saveTodoEdit (id){
 
 useEffect(()=>{
   filteredArr()
-},[status])
+},[status,sortTypeSelected])
 
 useEffect(() =>{
   setTodo(sortedArrayTodos())
 },[sortTypeSelected]);
   return (
     <div className="App-all">
-      
+     
         <Header />
         
         <AddTodo 
@@ -141,6 +148,9 @@ useEffect(() =>{
         inputHandler={inputHandler}
         saveTodo={saveTodo}/>
         <ButtonsSort
+        sortTypeSelected={sortTypeSelected}
+        status={status}
+        setCurrentPage={setCurrentPage}
         setSortTypeSelected={setSortTypeSelected}
         sortedArrayTodos={sortedArrayTodos}
         setStatus={setStatus}
