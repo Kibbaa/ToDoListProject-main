@@ -89,6 +89,7 @@ function App() {
     setValue(e.target.value)
     };
   const saveTodo = (e) => {
+    if (value !== ''){
     setTodo([
         ...todos, {
               id: uuidv4(),
@@ -97,7 +98,7 @@ function App() {
               date: Date.now(),
               addingDate: ' ' + new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
          }
-      ]);
+      ]);}
       setValue('')
       e.preventDefault()
     };
@@ -114,6 +115,7 @@ function deleteTodo(id) {
 function editTodo (id, title) {
   setValueEdit(title)
   setEdit(id)
+  
 };
 // const inputHandler = (e) => {
 //   e.target.focus()
@@ -157,6 +159,7 @@ useEffect(() =>{
         />
 
         <TodoList
+        setEdit={setEdit}
         todos={todos}
         edit = {edit}
         editTodo ={editTodo}
