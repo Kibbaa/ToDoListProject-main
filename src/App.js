@@ -6,6 +6,7 @@ import Pagination from './components/pagination/Pagination';
 import ButtonsSort from './components/sort buttons/ButtonsSort';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
+import {Flex} from '@chakra-ui/react'
 
 function App() {
   //STATES
@@ -141,8 +142,24 @@ useEffect(() =>{
   setTodo(sortedArrayTodos())
 },[sortTypeSelected]);
   return (
-    <div className="App-all">
-     
+    
+    // <div className="App-all">
+    <Flex
+    justify='center'
+    align='center'
+    h="100vh"
+    bgGradient='linear(to-l, #7928CA, #FF0080)'
+    >
+    
+    <Flex
+     direction='column'
+     justify='center'
+    // m="0 auto"
+     align='center'
+     w='520px'
+     bg='black'
+     borderRadius='10px'
+     >
         <Header />
         
         <AddTodo 
@@ -179,8 +196,9 @@ useEffect(() =>{
         currentPage={currentPage}
          />  
       ): ''}
-    </div>
-    
+      </Flex>
+      </Flex>
+    // </div>
   );
   }
 

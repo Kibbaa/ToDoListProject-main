@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import Todo from "../Todo/Todo";
 
@@ -7,7 +8,7 @@ function TodoList ({edit , editTodo, deleteTodo,
      }){  
 
     return(
-        <div className="task-pannels">
+       <Box>
         {
             paginationArray.map(item => <Todo 
             task={item} key={item.id}
@@ -21,8 +22,7 @@ function TodoList ({edit , editTodo, deleteTodo,
             setEdit={setEdit}
             /> )
         }
-                
-        </div>
+                </Box>
     )
 }
 
