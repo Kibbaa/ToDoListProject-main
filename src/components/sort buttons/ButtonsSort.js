@@ -1,4 +1,8 @@
+import { chakra } from "@chakra-ui/react";
 import React from "react";
+import { IconButton, Flex, HStack,Button } from "@chakra-ui/react";
+import { ArrowDownIcon,ArrowUpIcon } from '@chakra-ui/icons'
+
 
 function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,sortTypeSelected}){
     
@@ -22,28 +26,37 @@ function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,so
     }
 
     return(
-        <div className="sort-buttons">
-          <div className="buttons-date">
-            <button 
-            className={`${(sortTypeSelected === 'up') ? 'button-date-up-select' : 'button-date-up'}`} 
+        <Flex>
+        {/* <div className="sort-buttons"> */}
+          {/* <div className="buttons-date"> */}
+            <HStack marginRight='60px'
+            my='10px'>
+            <IconButton
+            fontSize='25px' 
+            icon={<ArrowUpIcon/>}
+            color={`${(sortTypeSelected === 'up') ? 'pink.800' : 'pink.300'}`} 
             onClick={upHandler} >
-            <span className="material-symbols-outlined">arrow_upward</span>
-            </button>
-            <button 
+            </IconButton>
+            <IconButton 
+            fontSize='25px'
+            icon={<ArrowDownIcon/>}
+            color={`${(sortTypeSelected === 'down') ? 'pink.800' : 'pink.300'}`} 
             className={`${(sortTypeSelected === 'down') ? 'button-date-down-select' : "button-date-down" }`} 
             onClick={downHandler}>
-            <span className="material-symbols-outlined">arrow_downward</span>
-            </button>
-                </div>
-                <div className="buttons-by-done">
-                    <button className={`${(status === 'all') ? 'button-by-done-all-select' : "button-by-done-all"}`} 
-                    onClick={setStatusAllHandler}>All</button>
-                    <button className={`${(status === 'undone') ? 'button-by-done-open-select' : "button-by-done-open"}`} 
-                    onClick={setStatusUndoneHandler}>Open</button>
-                    <button className={`${(status === 'done') ? 'button-by-done-closed-select' : "button-by-done-closed"}`}
-                    onClick={setStatusDoneHandler}>Closed</button>
-                </div>
-                </div>
+            
+            </IconButton>
+            </HStack>
+                {/* </div> */}
+                <HStack>
+                    <Button color={`${(status === 'all') ? 'pink.800' : 'pink.300'}`} 
+                    onClick={setStatusAllHandler}>All</Button>
+                    <Button color={`${(status === 'undone') ? 'pink.800' : 'pink.300'}`} 
+                    onClick={setStatusUndoneHandler}>Open</Button>
+                    <Button color={`${(status === 'done') ? 'pink.800' : 'pink.300'}`}
+                    onClick={setStatusDoneHandler}>Closed</Button>
+                </HStack>
+                </Flex>
+                // </div>
     )
     }
 

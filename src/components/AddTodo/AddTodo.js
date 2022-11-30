@@ -18,7 +18,7 @@ function AddTodo( { saveTodo, value, inputHandler } ){
                  fontWeight='bold'
                  size='lg'
                  colorScheme='pink'
-                 variant='solid'
+                 variant='ghost'
                  type='submit' onClick={saveTodo}> + Add</Button>
             </HStack>
         </form>
