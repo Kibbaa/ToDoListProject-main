@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 import Todo from "../Todo/Todo";
 
@@ -8,7 +8,9 @@ function TodoList ({edit , editTodo, deleteTodo,
      }){  
 
     return(
-       <Box>
+       <Flex 
+       h='430px'
+       flexDir='column'>
         {
             paginationArray.map(item => <Todo 
             task={item} key={item.id}
@@ -22,7 +24,7 @@ function TodoList ({edit , editTodo, deleteTodo,
             setEdit={setEdit}
             /> )
         }
-                </Box>
+        </Flex>
     )
 }
 

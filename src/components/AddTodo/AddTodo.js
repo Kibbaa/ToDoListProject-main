@@ -17,19 +17,10 @@ function AddTodo( { saveTodo, value, inputHandler } ){
                  <Button
                  fontWeight='bold'
                  size='lg'
-                 colorScheme='pink'
-                 variant='ghost'
+                 variant='solid'
                  type='submit' onClick={saveTodo}> + Add</Button>
             </HStack>
         </form>
-        // <form>
-        //     <input
-        //     className="todo-input" 
-        //     placeholder="Add task"
-        //     value={value} 
-        //     onChange = {(e)=>inputHandler(e)}/>
-        //     <button type='submit' className="todo-button" onClick={saveTodo}> + Add</button>
-        //  </form>
     )
 }
 

@@ -118,10 +118,7 @@ function editTodo (id, title) {
   setEdit(id)
   
 };
-// const inputHandler = (e) => {
-//   e.target.focus()
-//   e.target.onblur()
-// }
+
 //SAVE EDIT TODO FUNC
 function saveTodoEdit (id){
   const newTodo = [...todos].map(item => {
@@ -148,16 +145,17 @@ useEffect(() =>{
     justify='center'
     align='center'
     h="100vh"
+    w='auto'
     bgGradient='linear(to-l, #7928CA, #FF0080)'
     >
     
     <Flex
      direction='column'
      justify='center'
-    // m="0 auto"
      align='center'
      w='520px'
      bg='black'
+     h='670px'
      borderRadius='10px'
      >
         <Header />

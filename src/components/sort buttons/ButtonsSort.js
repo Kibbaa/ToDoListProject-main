@@ -37,7 +37,7 @@ function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,so
             color={`${(sortTypeSelected === 'up') ? 'pink.800' : 'pink.300'}`} 
             onClick={upHandler} >
             </IconButton>
-            <IconButton 
+            <IconButton     
             fontSize='25px'
             icon={<ArrowDownIcon/>}
             color={`${(sortTypeSelected === 'down') ? 'pink.800' : 'pink.300'}`} 

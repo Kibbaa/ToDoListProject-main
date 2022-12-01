@@ -1,4 +1,6 @@
 import React from "react";
+import { IconButton, Flex, ListItem, UnorderedList, Button, ButtonGroup } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 function Pagination({nextPage, previousPage, paginateHandler,numberOfPages, currentPage}) {
     
@@ -6,20 +8,41 @@ function Pagination({nextPage, previousPage, paginateHandler,numberOfPages, curr
   
   return(
     
-      <div className="pagination-window">  
-            <button className='btn-prev-item' disabled={currentPage == 1} onClick={previousPage}><span className="material-symbols-outlined">arrow_forward_ios</span></button>
-               <ul className="paginate-all-items">
+      <Flex
+      width='500px'
+      justifyContent='space-between'
+      my='10px'>  
+            <IconButton
+            color='pink.800'
+            fontSize='35px'
+            icon={<ChevronLeftIcon/>}
+            isDisabled={currentPage == 1} onClick={previousPage}>
+            </IconButton>
+               <ButtonGroup
+               fontSize='20px'
+               display='flex'
+               alignItems='center'
+               justifyContent='center'>
                { numberOfPages.map(number =>(
-                 <li key={number} className='paginate-item-li'>
-                   <a className="paginate-single-item" href="#" onClick={() => paginateHandler(number)}>
+                 <Flex key={number} >
+                   <Button
+                   color='pink.700'
+                   fontSize='22px'
+                   size='sm'
+                   href="#" onClick={() => paginateHandler(number)}>
                      {number}
-                   </a>
-                 </li> 
+                   </Button>
+                 </Flex> 
                ))
                }
-               </ul>
-            <button className="btn-next-item" disabled={currentPage == numberOfPages.length} onClick={nextPage}><span className="material-symbols-outlined">arrow_forward_ios</span></button>
-      </div>
+               </ButtonGroup>
+            <IconButton 
+            color='pink.800'
+            fontSize='35px'
+            icon={<ChevronRightIcon/>}
+            isDisabled={currentPage == numberOfPages.length} onClick={nextPage}>
+            </IconButton>
+      </Flex>
     
     )
 }
