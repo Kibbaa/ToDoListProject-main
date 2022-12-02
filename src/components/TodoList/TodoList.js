@@ -13,7 +13,7 @@ function TodoList ({edit , editTodo, deleteTodo,
        flexDir='column'>
         {
             paginationArray.map(item => <Todo 
-            task={item} key={item.id}
+            task={item} key={item.uuid}
             changeStatus={changeStatus}
             valueEdit={valueEdit}
             setValueEdit={setValueEdit}

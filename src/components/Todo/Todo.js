@@ -11,12 +11,12 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
     //     //  e.target.onblur()
     //      console.log(e.target);
     //  }
-    //  const saveEditHandler = (id) =>{
-    //     saveTodoEdit(id)
+    //  const saveEditHandler = (uuid) =>{
+    //     saveTodoEdit(uuid)
     //  }
      const saveEditEnter = (e) =>{
         if (e.keyCode == 13){
-            saveTodoEdit(task.id) 
+            saveTodoEdit(task.uuid) 
             e.target.blur()
         } else if (e.keyCode == 27){
 
@@ -30,6 +30,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
      }
     return(
         <Flex 
+        width='400px' 
         justifyContent='space-between'
         alignItems='center' 
         flexDir='row' 
@@ -45,15 +46,14 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
             size='lg'
             mx='5px'
             colorScheme='purple'
-            onChange={()=> changeStatus(task.id)} 
-            isChecked={task.status}/>
+            onChange={()=> changeStatus(task.uuid)} 
+            isChecked={task.done}/>
             </Flex>
             }  
             {
-            edit == task.id ? 
+            edit == task.uuid ? 
             <Flex >
                     <Input
-                    width='290px'
                     fontWeight='bold'
                     color='white'
                     variant='flushed'
@@ -71,7 +71,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
                      mr='8px'
                      my='6px'
                      fontSize='13px'
-                    onClick={() => saveTodoEdit(task.id)}>
+                    onClick={() => saveTodoEdit(task.uuid)}>
                         Save edit
                     </Button>
                 </Flex> 
@@ -83,22 +83,24 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
                             fontWeight='700'
                             color='white'
                             justifyContent='center'
-                            width='353px' 
-                            onDoubleClick={() => editTodo(task.id, task.title)} >
-                                {task.title}
-                                {task.addingDate}
-                            </Flex>
-                            <Flex mr='8px'>
-                                <IconButton
-                                color='purple.500'
-                                size='sm'
-                                my='6px'
-                                fontSize='20px'
-                                icon={<DeleteIcon/>}
-                                onClick={ () => deleteTodo(task.id)}>
-                                </IconButton>      
+                            
+                            onDoubleClick={() => editTodo(task.uuid, task.name)} >
+                                {task.name}
+                                {task.createdAt}
                             </Flex>
                     </Flex>
+                    }
+                    {
+                        <Flex mr='8px'>
+                        <IconButton
+                        color='purple.500'
+                        size='sm'
+                        my='6px'
+                        fontSize='20px'
+                        icon={<DeleteIcon/>}
+                        onClick={ () => deleteTodo(task.uuid)}>
+                        </IconButton>      
+                        </Flex>
                     }
 
                     

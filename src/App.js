@@ -7,25 +7,38 @@ import ButtonsSort from './components/sort buttons/ButtonsSort';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 import {Flex} from '@chakra-ui/react'
+import axios from 'axios';
 
 function App() {
   //STATES
-  const [todos, setTodo] = useState([
-    {id:1, title:'1', status: false, date: 1 },
-    {id:2, title:'2', status: false, date: 2},
-    {id:3, title:'3', status: false, date: 3},
-    {id:4, title:'4', status: false, date: 4},
-    {id:5, title:'5', status: false, date: 5},
-    {id:6, title:'6', status: false, date: 6},
-    {id:7, title:'7', status: false, date: 7},
-  ]);
+  const [todos, setTodo] = useState([]);
   const [valueEdit, setValueEdit] = useState('');
-  const [edit, setEdit] = useState(null);
+  const [edit, setEdit] = useState(false);
   const [value, setValue] = useState('');
   const [sortTypeSelected, setSortTypeSelected] = useState('up');
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState('all')
+  const [countTodos, setCountTodos] = useState()
   
+
+   const getTodos =  () => {
+    axios.get('http://learning.alpacait.ru:3000/v1/tasks/2?order=asc&pp=7&page=1')
+    .then(res => {
+      setCountTodos(res.data.count)
+      console.log(countTodos);
+      setTodo(res.data.tasks)
+      console.log(res.data.tasks);
+    })
+
+
+
+  }
+  useEffect(()=> {
+    getTodos();
+  },[])
+  
+
+
 
   // Sort by date with down
   const dateUp = () =>{
@@ -45,10 +58,10 @@ function App() {
   }
 
   // STATUS FUNC
-  function changeStatus(id){
+  function changeStatus(uuid){
     const newTodo = todos.filter( item => {
-        if( item.id == id) {
-            item.status = !item.status
+        if( item.uuid == uuid) {
+            item.done = !item.done
         }
         return item
         
@@ -58,9 +71,9 @@ function App() {
 // Handler for filter todos
   const filterHandler = (arr) => {
     if(status === 'done'){
-      return arr.filter(todo => todo.status === true)
+      return arr.filter(todo => todo.done === true)
     } else if(status === 'undone'){
-      return arr.filter(todo => todo.status === false)}
+      return arr.filter(todo => todo.done === false)}
      else if (status === 'all'){
       return arr
     }
@@ -93,19 +106,20 @@ function App() {
     if (value !== ''){
     setTodo([
         ...todos, {
-              id: uuidv4(),
-              title: value,
-              status: false,
+              uuid: uuidv4(),
+              name: value,
+              done: false,
               date: Date.now(),
-              addingDate: ' ' + new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+              createdAt: ' ' + new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
          }
       ]);}
       setValue('')
       e.preventDefault()
+      console.log(todos);
     };
 //DELETE TODO FUNC
-function deleteTodo(id) {
-  const newTodo = todos.filter( item => item.id !== id);
+function deleteTodo(uuid) {
+  const newTodo = todos.filter( item => item.uuid !== uuid);
   setTodo(newTodo);
   if (paginationArray.length === 1){
     if (currentPage > 1)
@@ -113,17 +127,17 @@ function deleteTodo(id) {
   }
 };
 //EDIT TODO FUNC
-function editTodo (id, title) {
-  setValueEdit(title)
-  setEdit(id)
+function editTodo (uuid, name) {
+  setValueEdit(name)
+  setEdit(uuid)
   
 };
 
 //SAVE EDIT TODO FUNC
-function saveTodoEdit (id){
+function saveTodoEdit (uuid){
   const newTodo = [...todos].map(item => {
-      if (item.id == id){
-          item.title = valueEdit
+      if (item.uuid == uuid){
+          item.name = valueEdit
       }
       return item
   });
