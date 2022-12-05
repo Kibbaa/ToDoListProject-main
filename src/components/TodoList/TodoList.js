@@ -2,9 +2,9 @@ import { Flex } from "@chakra-ui/react";
 import React from "react";
 import Todo from "../Todo/Todo";
 
-function TodoList ({edit , editTodo, deleteTodo,
+function TodoList ({edit , todos, editTodo, deleteTodo,
      saveTodoEdit, setValueEdit, valueEdit,
-      changeStatus,paginationArray, setEdit
+      changeStatus,paginationArray, setEdit,getTodos
      }){  
 
     return(
@@ -12,7 +12,8 @@ function TodoList ({edit , editTodo, deleteTodo,
        h='430px'
        flexDir='column'>
         {
-            paginationArray.map(item => <Todo 
+            todos.map(item => <Todo 
+                getTodos={getTodos}
             task={item} key={item.uuid}
             changeStatus={changeStatus}
             valueEdit={valueEdit}

@@ -6,14 +6,15 @@ import { ArrowDownIcon,ArrowUpIcon } from '@chakra-ui/icons'
 
 function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,sortTypeSelected}){
     
+    
     const upHandler = () =>{
-        setSortTypeSelected('up')
+        setSortTypeSelected('asc')
     }
     const downHandler = () =>{
-        setSortTypeSelected('down')
+        setSortTypeSelected('desc')
     }
     const setStatusAllHandler = () => {
-        setStatus('all')
+        setStatus('')
         setCurrentPage(1)
     }
     const setStatusDoneHandler = () =>{
@@ -27,28 +28,24 @@ function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,so
 
     return(
         <Flex>
-        {/* <div className="sort-buttons"> */}
-          {/* <div className="buttons-date"> */}
             <HStack marginRight='60px'
             my='10px'>
             <IconButton
             fontSize='25px' 
             icon={<ArrowUpIcon/>}
-            color={`${(sortTypeSelected === 'up') ? 'pink.800' : 'pink.300'}`} 
+            color={`${(sortTypeSelected === 'asc') ? 'pink.800' : 'pink.300'}`} 
             onClick={upHandler} >
             </IconButton>
             <IconButton     
             fontSize='25px'
             icon={<ArrowDownIcon/>}
-            color={`${(sortTypeSelected === 'down') ? 'pink.800' : 'pink.300'}`} 
-            className={`${(sortTypeSelected === 'down') ? 'button-date-down-select' : "button-date-down" }`} 
+            color={`${(sortTypeSelected === 'desc') ? 'pink.800' : 'pink.300'}`} 
             onClick={downHandler}>
             
             </IconButton>
-            </HStack>
-                {/* </div> */}
+            </HStack>  
                 <HStack>
-                    <Button color={`${(status === 'all') ? 'pink.800' : 'pink.300'}`} 
+                    <Button color={`${(status === '') ? 'pink.800' : 'pink.300'}`} 
                     onClick={setStatusAllHandler}>All</Button>
                     <Button color={`${(status === 'undone') ? 'pink.800' : 'pink.300'}`} 
                     onClick={setStatusUndoneHandler}>Open</Button>
@@ -56,7 +53,6 @@ function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,so
                     onClick={setStatusDoneHandler}>Closed</Button>
                 </HStack>
                 </Flex>
-                // </div>
     )
     }
 

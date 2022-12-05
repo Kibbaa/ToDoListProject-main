@@ -1,28 +1,74 @@
 import React from "react";
 import { IconButton, Flex, Button, Checkbox, Input, } from "@chakra-ui/react";
 import { DeleteIcon } from '@chakra-ui/icons'
+import axios from "axios";
 
-function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,deleteTodo,editTodo,edit}){
-
-//  const inputEditHandler = (e) => {
-    //     e.target.classList.add('edit')
-    //     // const inputEdit = 
-    //     //  e.target.focus()
-    //     //  e.target.onblur()
-    //      console.log(e.target);
-    //  }
-    //  const saveEditHandler = (uuid) =>{
-    //     saveTodoEdit(uuid)
-    //  }
-     const saveEditEnter = (e) =>{
-        if (e.keyCode == 13){
-            saveTodoEdit(task.uuid) 
-            e.target.blur()
-        } else if (e.keyCode == 27){
-
+function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,deleteTodo,editTodo,edit,getTodos}){
+    const deleteHandler = () =>{
+        axios.delete(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`)
+            .then(() => {
+                getTodos();
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+    const EditTodoHeandlerOnKey = (e) =>{
+        if (e.keyCode == 27){
             setEdit(!edit)
-            e.target.blur()
+        }else if(e.keyCode == 13){
+        axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
+        {
+            name: valueEdit ,
+            done: task.done ,
+            createdAt: task.createdAt ,
+            updatedAt: new Date(),
+
+
         }
+        )
+        .then(() =>{
+            getTodos();
+            setEdit(!edit);
+        })
+        .catch((error) =>{
+            console.log(error);
+        })
+    }
+}
+const EditTodoHeandler = () =>{
+    axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
+    {
+        name: valueEdit ,
+        done: task.done ,
+        createdAt: task.createdAt ,
+        updatedAt: new Date(),
+
+
+    }
+    )
+    .then(() =>{
+        getTodos();
+        setEdit(!edit);
+    })
+    .catch((error) =>{
+        console.log(error);
+    })
+}
+    const statusHandler = () =>{
+        axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
+        {
+			done: !task.done,
+			createdAt: task.createdAt,
+			updatedAt: new Date(),
+        })
+        .then(() =>{
+            getTodos();
+        })
+        .catch((error) =>{
+            console.log(error);
+        })
+
     }
     const  handlerEditBlur = () =>{
         
@@ -46,7 +92,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
             size='lg'
             mx='5px'
             colorScheme='purple'
-            onChange={()=> changeStatus(task.uuid)} 
+            onChange={statusHandler} 
             isChecked={task.done}/>
             </Flex>
             }  
@@ -57,8 +103,8 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
                     fontWeight='bold'
                     color='white'
                     variant='flushed'
-                    //onBlur={handlerEditBlur}
-                    onKeyDown={saveEditEnter}
+                    // onBlur={handlerEditBlur}
+                    onKeyDown={EditTodoHeandlerOnKey}
                     autoFocus
                     placeholder="Add edit task"
                     onChange={(e) => setValueEdit(e.target.value)} 
@@ -71,7 +117,8 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
                      mr='8px'
                      my='6px'
                      fontSize='13px'
-                    onClick={() => saveTodoEdit(task.uuid)}>
+                    onClick={EditTodoHeandler}
+                    >
                         Save edit
                     </Button>
                 </Flex> 
@@ -79,14 +126,18 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
                         :
                     <Flex justifyContent='center' alignItems='center'>
                             <Flex
+                            width='324px'
                             outline='none'
                             fontWeight='700'
                             color='white'
-                            justifyContent='center'
-                            
+                            justifyContent='space-between'
                             onDoubleClick={() => editTodo(task.uuid, task.name)} >
+                                <Flex>
                                 {task.name}
+                                </Flex>
+                                <Flex>
                                 {task.createdAt}
+                                </Flex>
                             </Flex>
                     </Flex>
                     }
@@ -98,7 +149,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
                         my='6px'
                         fontSize='20px'
                         icon={<DeleteIcon/>}
-                        onClick={ () => deleteTodo(task.uuid)}>
+                        onClick={deleteHandler}>
                         </IconButton>      
                         </Flex>
                     }

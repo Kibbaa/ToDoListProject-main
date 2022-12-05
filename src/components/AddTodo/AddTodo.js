@@ -1,7 +1,33 @@
-import { Button, HStack, Input,Divider } from "@chakra-ui/react";
+import { Button, HStack, Input } from "@chakra-ui/react";
+import axios from "axios";
 import React from "react";
 
-function AddTodo( { saveTodo, value, inputHandler } ){
+
+function AddTodo( { saveTodo, value, setValue ,getTodos } ){
+    
+    const inputHandler = (e) => {
+        setValue(e.target.value)
+        console.log(e.target.value);
+        };
+
+    const submitAddHandler = (e) => {
+        e.preventDefault()
+        
+        axios.post(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}`,
+        {
+            name:value,
+            done:false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        })
+        .then(() => {
+            getTodos();
+        })
+        .catch((error) =>{
+            console.log(error);
+        }
+        )};
+
     return(
         <form>
             <HStack>
@@ -18,7 +44,7 @@ function AddTodo( { saveTodo, value, inputHandler } ){
                  fontWeight='bold'
                  size='lg'
                  variant='solid'
-                 type='submit' onClick={saveTodo}> + Add</Button>
+                 type='submit' onClick={submitAddHandler}> + Add</Button>
             </HStack>
         </form>
     )
