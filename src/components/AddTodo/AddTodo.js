@@ -4,7 +4,7 @@ import React from "react";
 import {Alert} from '@chakra-ui/react'
 
 
-function AddTodo( { value, setValue ,getTodos,submitAddHandler } ){
+function AddTodo( { value, setValue ,submitAddHandler } ){
     
     const inputHandler = (e) => {
         setValue(e.target.value)
