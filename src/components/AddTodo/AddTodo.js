@@ -8,18 +8,15 @@ function AddTodo( { value, setValue ,submitAddHandler } ){
     
     const inputHandler = (e) => {
         setValue(e.target.value)
-        console.log(e.target.value)
+        
         };
-    const blurInput = () =>{
-        setValue('')   
-    }
-    
+
 
     return(
         <form>
             <HStack>
                 <Input
-                onBlur={blurInput}
+                
                 fontWeight='bold'
                 color='pink.100'
                 _placeholder={{opacity:0.4, color: 'pink.100'}}
