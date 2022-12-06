@@ -1,37 +1,25 @@
-import { Button, HStack, Input } from "@chakra-ui/react";
+import { Button, chakra, HStack, Input } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
+import {Alert} from '@chakra-ui/react'
 
 
-function AddTodo( { saveTodo, value, setValue ,getTodos } ){
+function AddTodo( { value, setValue ,getTodos,submitAddHandler } ){
     
     const inputHandler = (e) => {
         setValue(e.target.value)
-        console.log(e.target.value);
+        console.log(e.target.value)
         };
-
-    const submitAddHandler = (e) => {
-        e.preventDefault()
-        
-        axios.post(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}`,
-        {
-            name:value,
-            done:false,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        })
-        .then(() => {
-            getTodos();
-        })
-        .catch((error) =>{
-            console.log(error);
-        }
-        )};
+    const blurInput = () =>{
+        setValue('')   
+    }
+    
 
     return(
         <form>
             <HStack>
                 <Input
+                onBlur={blurInput}
                 fontWeight='bold'
                 color='pink.100'
                 _placeholder={{opacity:0.4, color: 'pink.100'}}

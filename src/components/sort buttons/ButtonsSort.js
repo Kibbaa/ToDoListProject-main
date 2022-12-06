@@ -1,4 +1,4 @@
-import { chakra } from "@chakra-ui/react";
+
 import React from "react";
 import { IconButton, Flex, HStack,Button } from "@chakra-ui/react";
 import { ArrowDownIcon,ArrowUpIcon } from '@chakra-ui/icons'

@@ -1,10 +1,12 @@
 import React from "react";
-import { IconButton, Flex, ListItem, UnorderedList, Button, ButtonGroup } from "@chakra-ui/react";
+import { IconButton, Flex, Button, ButtonGroup } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
-function Pagination({nextPage, previousPage, paginateHandler,numberOfPages, currentPage}) {
-    
+function Pagination({numberOfPages, currentPage, setCurrentPage}) {
 
+  const previousPage = () => setCurrentPage(prev=>prev-1);
+  const nextPage = () => setCurrentPage(prev=>prev+1);
+  const paginateHandler = (number) => setCurrentPage(number);
   
   return(
     
@@ -16,7 +18,7 @@ function Pagination({nextPage, previousPage, paginateHandler,numberOfPages, curr
             color='pink.800'
             fontSize='35px'
             icon={<ChevronLeftIcon/>}
-            isDisabled={currentPage == 1} onClick={previousPage}>
+            isDisabled={currentPage === 1} onClick={previousPage}>
             </IconButton>
                <ButtonGroup
                fontSize='20px'
@@ -40,7 +42,7 @@ function Pagination({nextPage, previousPage, paginateHandler,numberOfPages, curr
             color='pink.800'
             fontSize='35px'
             icon={<ChevronRightIcon/>}
-            isDisabled={currentPage == numberOfPages.length} onClick={nextPage}>
+            isDisabled={currentPage === numberOfPages.length} onClick={nextPage}>
             </IconButton>
       </Flex>
     

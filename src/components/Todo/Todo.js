@@ -3,16 +3,19 @@ import { IconButton, Flex, Button, Checkbox, Input, } from "@chakra-ui/react";
 import { DeleteIcon } from '@chakra-ui/icons'
 import axios from "axios";
 
-function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,deleteTodo,editTodo,edit,getTodos}){
+function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,getTodos}){
+    
     const deleteHandler = () =>{
         axios.delete(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`)
             .then(() => {
                 getTodos();
+                
             })
             .catch((error) => {
                 console.log(error);
             })
     }
+
     const EditTodoHeandlerOnKey = (e) =>{
         if (e.keyCode == 27){
             setEdit(!edit)
@@ -36,25 +39,25 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,saveTodoEdit,del
         })
     }
 }
-const EditTodoHeandler = () =>{
-    axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
-    {
-        name: valueEdit ,
-        done: task.done ,
-        createdAt: task.createdAt ,
-        updatedAt: new Date(),
+    const EditTodoHeandler = () =>{
+        axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
+        {
+            name: valueEdit ,
+            done: task.done ,
+            createdAt: task.createdAt ,
+            updatedAt: new Date(),
 
 
+        }
+        )
+        .then(() =>{
+            getTodos();
+            setEdit(!edit);
+        })
+        .catch((error) =>{
+            console.log(error);
+        })
     }
-    )
-    .then(() =>{
-        getTodos();
-        setEdit(!edit);
-    })
-    .catch((error) =>{
-        console.log(error);
-    })
-}
     const statusHandler = () =>{
         axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
         {
@@ -70,10 +73,10 @@ const EditTodoHeandler = () =>{
         })
 
     }
-    const  handlerEditBlur = () =>{
+    // const  handlerEditBlur = () =>{
         
-        setEdit(!edit)
-     }
+    //     setEdit(!edit)
+    //  }
     return(
         <Flex 
         width='400px' 
@@ -124,20 +127,27 @@ const EditTodoHeandler = () =>{
                 </Flex> 
             </Flex>
                         :
-                    <Flex justifyContent='center' alignItems='center'>
+                    <Flex justifyContent='center' alignItems='center'
+                    overflow="hidden">
                             <Flex
-                            width='324px'
+                            width='310px'
                             outline='none'
                             fontWeight='700'
                             color='white'
                             justifyContent='space-between'
-                            onDoubleClick={() => editTodo(task.uuid, task.name)} >
-                                <Flex>
-                                {task.name}
-                                </Flex>
-                                <Flex>
+                            onDoubleClick={() => editTodo(task.uuid, task.name)}
+                            overflow='hidden'
+                            whiteSpace='nowrap'
+                            textOverflow='ellipsis'
+                            >
+                                {task.name} 
+                                
+                            </Flex>
+                            <Flex
+                            color='pink.200'
+                            ml='5px'
+                            fontSize='10px'>
                                 {task.createdAt}
-                                </Flex>
                             </Flex>
                     </Flex>
                     }
