@@ -27,6 +27,9 @@ function App() {
       .then(res => {
       setCountTodos(res.data.count);
       setTodo(res.data.tasks) 
+      if(todos.length === 1){
+        setCurrentPage(prev => prev -1)
+      }
     })
       .catch((error) => { 
         if (error.response.status === 400 ){
@@ -140,6 +143,7 @@ useEffect(()=> {
         />
         }
         <TodoList
+     
         getTodos={getTodos}
         setEdit={setEdit}
         todos={todos}

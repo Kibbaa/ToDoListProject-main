@@ -3,7 +3,7 @@ import React from "react";
 import Todo from "../Todo/Todo";
 
 function TodoList ({edit , todos, editTodo, setValueEdit, valueEdit,
-      changeStatus, setEdit, getTodos, deleteHandler
+      changeStatus, setEdit, getTodos,
      }){  
 
     return(

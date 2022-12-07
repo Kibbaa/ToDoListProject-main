@@ -9,7 +9,6 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
         axios.delete(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`)
             .then(() => {
                 getTodos();
-                
             })
             .catch((error) => {
                 console.log(error);
