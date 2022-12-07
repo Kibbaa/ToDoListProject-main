@@ -1,7 +1,5 @@
-import { Button, chakra, HStack, Input } from "@chakra-ui/react";
-import axios from "axios";
+import { Button, HStack, Input } from "@chakra-ui/react";
 import React from "react";
-import {Alert} from '@chakra-ui/react'
 
 
 function AddTodo( { value, setValue ,submitAddHandler } ){
@@ -10,8 +8,6 @@ function AddTodo( { value, setValue ,submitAddHandler } ){
         setValue(e.target.value)
         
         };
-
-
     return(
         <form>
             <HStack>

@@ -35,7 +35,12 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
             setEdit(!edit);
         })
         .catch((error) =>{
-            console.log(error);
+            if (error.response.status === 422){
+                alert(`Task lenght shouldn't be empty`)
+                console.log(error.response);
+            } else if(error.response.status === 400){
+                alert('Task shoold be unique')
+            }
         })
     }
 }
@@ -55,7 +60,11 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
             setEdit(!edit);
         })
         .catch((error) =>{
-            console.log(error);
+            if (error.response.status === 422){
+                alert(`Task lenght shouldn't be empty`)
+            } else if(error.response.status === 400){
+                alert('Task shoold be unique')
+            }
         })
     }
     const statusHandler = () =>{
@@ -69,14 +78,14 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
             getTodos();
         })
         .catch((error) =>{
-            console.log(error);
+            if (error.response.status === 422){
+                alert(`Task lenght shouldn't be empty`)
+            } else if(error.response.status === 400){
+                alert('Task shoold be unique')
+            }
         })
 
     }
-    // const  handlerEditBlur = () =>{
-        
-    //     setEdit(!edit)
-    //  }
     return(
         <Flex 
         width='400px' 

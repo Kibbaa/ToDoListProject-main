@@ -25,12 +25,13 @@ function App() {
    const getTodos =  () => {
     axios.get(`${process.env.REACT_APP_BASE_URL}tasks/${process.env.REACT_APP_userId}?filterBy=${status}&order=${sortTypeSelected}&pp=${todosPerPage}&page=${currentPage}`)
       .then(res => {
-    
       setCountTodos(res.data.count);
       setTodo(res.data.tasks) 
     })
       .catch((error) => { 
-        
+        if (error.response.status === 400 ){
+          alert('task not created')
+        }
       })
       
 
