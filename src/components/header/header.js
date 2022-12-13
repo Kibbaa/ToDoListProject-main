@@ -5,6 +5,10 @@ function Header(){
     
     return(
         <Heading 
+        w={['xs','sm','md','2xl','3xl']}
+        display='flex'
+        justifyContent='center'
+        whiteSpace='nowrap'
         size='xl'
         fontWeight='extrabold'
         mt='12'
@@ -15,7 +19,6 @@ function Header(){
         >
         ToDo List
         </Heading>
-        //  <div className="header">ToDo List</div>
     )
 }
 

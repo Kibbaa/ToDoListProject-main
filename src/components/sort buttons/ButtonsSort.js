@@ -27,8 +27,13 @@ function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,so
     }
 
     return(
-        <Flex>
-            <HStack marginRight='60px'
+        <Flex 
+        justifyContent='space-between'
+        maxWidth='500px'
+        
+        >
+            <HStack 
+            marginRight='60px'
             my='10px'>
             <IconButton
             fontSize='25px' 

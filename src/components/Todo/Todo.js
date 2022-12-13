@@ -3,16 +3,18 @@ import { IconButton, Flex, Button, Checkbox, Input, } from "@chakra-ui/react";
 import { DeleteIcon } from '@chakra-ui/icons'
 import { deleteTodo,editPatchTodo,statusPatchTodo } from "../../services/instance";
 
-function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,getTodos}){
+function Todo({task,valueEdit,setValueEdit,setEdit,editTodo,edit,getTodos,setError}){
     
     const inputValue = useRef(null)
     
-    const deleteHandler = async () => {
-        try{
+    const deleteHandler = async (e) => {
+        e.target.disabled = true
+        try{ 
             await deleteTodo(task);
             await getTodos();
         }catch(error){
-
+            e.target.disabled = false
+            setError(error.message)
         }
     }
     
@@ -26,8 +28,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
             await getTodos();
             setEdit(!edit)
             } catch(error){
-                console.log('123');
-                console.log(error);
+                setError(error.message)
             }
         }
 
@@ -38,8 +39,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
             await getTodos();
             setEdit(!edit)
             } catch(error){
-                console.log('123');
-                console.log(error);
+                setError(error.message)
             }
         }
 
@@ -48,33 +48,14 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
         try{
         await statusPatchTodo(task);
         await getTodos();
-        }catch{
-
+        }catch(error){
+            setError(error.message)
         }
 
     }
-    // const statusHandler = () =>{
-    //     axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
-    //     {
-	// 		done: !task.done,
-	// 		createdAt: task.createdAt,
-	// 		updatedAt: new Date(),
-    //     })
-    //     .then(() =>{
-    //         getTodos();
-    //     })
-    //     .catch((error) =>{
-    //         if (error.response.status === 422){
-    //             alert(`Task lenght shouldn't be empty`)
-    //         } else if(error.response.status === 400){
-    //             alert('Task shoold be unique')
-    //         }
-    //     })
-
-    // }
+    
     return(
         <Flex 
-        max-width='700px' 
         justifyContent='space-between'
         alignItems='center' 
         flexDir='row' 
@@ -82,8 +63,9 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
         borderRadius='6px'
         borderColor='purple.400'
         mb='2px'
-        ml='10px'
-        mr='10px'
+        
+        maxWidth='800px' 
+        width='100%'
         >
             {
             <Flex>
@@ -97,8 +79,8 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
             </Flex>
             }  
             {
-            edit == task.uuid ? 
-            <Flex >
+            edit === task.uuid ? 
+            <Flex width='100%' >
                     <Input
                     ref={inputValue}
                     fontWeight='bold'
@@ -126,10 +108,13 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
                 </Flex> 
             </Flex>
                         :
-                    <Flex justifyContent='center' alignItems='center'
+                    <Flex
+                    padding='10px' w={['xs','sm','md','2xl','3xl']} justifyContent='center' alignItems='center'
                     overflow="hidden">
                             <Flex
-                            width='310px'
+                            // w={['xs','sm','md','2xl','3xl']}
+                            // maxWidth='200px'
+                            width='100%'
                             outline='none'
                             fontWeight='700'
                             color='white'
@@ -145,7 +130,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
                             <Flex
                             color='pink.200'
                             ml='5px'
-                            fontSize='10px'>
+                            fontSize="14px">
                                 {task.createdAt}
                             </Flex>
                     </Flex>

@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { postTask } from "../../services/instance";
 
 
-function AddTodo( { value, setValue ,getTodos } ){
+function AddTodo( { value, setValue ,getTodos,setError } ){
     const ref = useRef(null)
     const inputHandler = (e) => {
         setValue(e.target.value)
@@ -15,15 +15,17 @@ function AddTodo( { value, setValue ,getTodos } ){
         try{
             await postTask(ref)
             await getTodos()
-        }catch{
-            console.log(132);
+        }catch(error){
+            setError(error.message)
         }
     }
     
 
     return(
         <form>
-            <HStack>
+            <HStack
+           
+            mx='10px'>
                 <Input
                 ref={ref}
                 fontWeight='bold'

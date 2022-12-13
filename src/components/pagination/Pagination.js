@@ -11,7 +11,10 @@ function Pagination({numberOfPages, currentPage, setCurrentPage}) {
   return(
     
       <Flex
-      width='500px'
+      pos='absolute'
+      bottom='0'
+      minWidth='300px'
+      maxWidth='800px'
       justifyContent='space-between'
       my='10px'>  
             <IconButton
