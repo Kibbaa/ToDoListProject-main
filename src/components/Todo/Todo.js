@@ -1,93 +1,80 @@
-import React from "react";
+import React, {useRef} from "react";
 import { IconButton, Flex, Button, Checkbox, Input, } from "@chakra-ui/react";
 import { DeleteIcon } from '@chakra-ui/icons'
-import axios from "axios";
+import { deleteTodo,editPatchTodo,statusPatchTodo } from "../../services/instance";
 
 function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,getTodos}){
     
-    const deleteHandler = () =>{
-        axios.delete(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`)
-            .then(() => {
-                getTodos();
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
+    const inputValue = useRef(null)
+    
+    const deleteHandler = async () => {
+        try{
+            await deleteTodo(task);
+            await getTodos();
+        }catch(error){
 
-    const EditTodoHeandlerOnKey = (e) =>{
-        if (e.keyCode == 27){
+        }
+    }
+    
+    const EditTodoHandlerOnKey = async (e) => {
+        if (e.keyCode === 27){
             setEdit(!edit)
-        }else if(e.keyCode == 13){
-        axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
-        {
-            name: valueEdit ,
-            done: task.done ,
-            createdAt: task.createdAt ,
-            updatedAt: new Date(),
+        }
+        if(e.keyCode === 13){
+            try{
+            await editPatchTodo(task,inputValue);
+            await getTodos();
+            setEdit(!edit)
+            } catch(error){
+                console.log('123');
+                console.log(error);
+            }
+        }
 
+    }
+    const EditTodoHandler = async () => {
+            try{
+            await editPatchTodo(task,inputValue);
+            await getTodos();
+            setEdit(!edit)
+            } catch(error){
+                console.log('123');
+                console.log(error);
+            }
+        }
+
+    
+    const statusHandler = async () => {
+        try{
+        await statusPatchTodo(task);
+        await getTodos();
+        }catch{
 
         }
-        )
-        .then(() =>{
-            getTodos();
-            setEdit(!edit);
-        })
-        .catch((error) =>{
-            if (error.response.status === 422){
-                alert(`Task lenght shouldn't be empty`)
-                console.log(error.response);
-            } else if(error.response.status === 400){
-                alert('Task shoold be unique')
-            }
-        })
-    }
-}
-    const EditTodoHeandler = () =>{
-        axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
-        {
-            name: valueEdit ,
-            done: task.done ,
-            createdAt: task.createdAt ,
-            updatedAt: new Date(),
-
-
-        }
-        )
-        .then(() =>{
-            getTodos();
-            setEdit(!edit);
-        })
-        .catch((error) =>{
-            if (error.response.status === 422){
-                alert(`Task lenght shouldn't be empty`)
-            } else if(error.response.status === 400){
-                alert('Task shoold be unique')
-            }
-        })
-    }
-    const statusHandler = () =>{
-        axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
-        {
-			done: !task.done,
-			createdAt: task.createdAt,
-			updatedAt: new Date(),
-        })
-        .then(() =>{
-            getTodos();
-        })
-        .catch((error) =>{
-            if (error.response.status === 422){
-                alert(`Task lenght shouldn't be empty`)
-            } else if(error.response.status === 400){
-                alert('Task shoold be unique')
-            }
-        })
 
     }
+    // const statusHandler = () =>{
+    //     axios.patch(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}/${task.uuid}`,
+    //     {
+	// 		done: !task.done,
+	// 		createdAt: task.createdAt,
+	// 		updatedAt: new Date(),
+    //     })
+    //     .then(() =>{
+    //         getTodos();
+    //     })
+    //     .catch((error) =>{
+    //         if (error.response.status === 422){
+    //             alert(`Task lenght shouldn't be empty`)
+    //         } else if(error.response.status === 400){
+    //             alert('Task shoold be unique')
+    //         }
+    //     })
+
+    // }
     return(
         <Flex 
-        width='400px' 
+        max-width='700px' 
         justifyContent='space-between'
         alignItems='center' 
         flexDir='row' 
@@ -95,6 +82,8 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
         borderRadius='6px'
         borderColor='purple.400'
         mb='2px'
+        ml='10px'
+        mr='10px'
         >
             {
             <Flex>
@@ -111,11 +100,13 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
             edit == task.uuid ? 
             <Flex >
                     <Input
+                    ref={inputValue}
                     fontWeight='bold'
                     color='white'
                     variant='flushed'
                     // onBlur={handlerEditBlur}
-                    onKeyDown={EditTodoHeandlerOnKey}
+                    // onKeyDown={EditTodoHeandlerOnKey}
+                    onKeyDown={EditTodoHandlerOnKey}
                     autoFocus
                     placeholder="Add edit task"
                     onChange={(e) => setValueEdit(e.target.value)} 
@@ -128,7 +119,7 @@ function Todo({task,changeStatus,valueEdit,setValueEdit,setEdit,editTodo,edit,ge
                      mr='8px'
                      my='6px'
                      fontSize='13px'
-                    onClick={EditTodoHeandler}
+                    onClick={EditTodoHandler}
                     >
                         Save edit
                     </Button>

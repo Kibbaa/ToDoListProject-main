@@ -4,10 +4,9 @@ import AddTodo from './components/AddTodo/AddTodo';
 import TodoList from './components/TodoList/TodoList';
 import Pagination from './components/pagination/Pagination';
 import ButtonsSort from './components/sort buttons/ButtonsSort';
+import { getAllTodos } from './services/instance';
 import './App.css';
 import {Alert, Flex,} from '@chakra-ui/react'
-import axios from 'axios';
-
 
 function App() {
   //STATES
@@ -22,60 +21,20 @@ function App() {
   const [countTodos, setCountTodos] = useState('')
   
  //123
-   const getTodos =  () => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}tasks/${process.env.REACT_APP_userId}?filterBy=${status}&order=${sortTypeSelected}&pp=${todosPerPage}&page=${currentPage}`)
-      .then(res => {
-      setCountTodos(res.data.count);
-      setTodo(res.data.tasks) 
-      if(todos.length === 1){
-        setCurrentPage(prev => prev -1)
-      }
-    })
-      .catch((error) => { 
-        if (error.response.status === 400 ){
-          alert('task not created')
-        }
-      })
-      
 
-  }
-  useEffect(()=> {
-    getTodos();
-  },[currentPage,sortTypeSelected,status])
-  
+  const getTodos = async () =>{
+    try{
+      const {data} = await getAllTodos({status, sortTypeSelected,todosPerPage,currentPage})
+      setCountTodos(data.count)
+      setTodo(data.tasks)
 
-  const submitAddHandler = (e) => {
-    e.preventDefault()
-    
-    axios.post(`${process.env.REACT_APP_BASE_URL}task/${process.env.REACT_APP_userId}`,
-    {
-        name:value,
-        done:false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    })
-    .then(() => {
-        getTodos();
-    })
-    .catch((error) =>{
-        if (error.response.status === 422){
-            alert(`Task lenght shouldn't be empty`)
-            console.log(error.response);
-        } else if(error.response.status === 400){
-            alert('Task shoold be unique')
-        }
+    }catch(error){
     }
-    )};
-    
-    
-
-
-  // Sort by date with down
-
+  }
   // STATUS FUNC
   function changeStatus(uuid){
     const newTodo = todos.filter( item => {
-        if( item.uuid == uuid) {
+        if( item.uuid === uuid) {
             item.done = !item.done
         }
         return item
@@ -83,7 +42,6 @@ function App() {
     });
     setTodo(newTodo)
   };
-
 //PAGINATION
   const todosPerPage = 7;
   const numberOfPages = [];
@@ -93,16 +51,13 @@ function App() {
      }
 
 //EDIT TODO FUNC
-function editTodo (uuid, name) {
-  setValueEdit(name)
-  setEdit(uuid)
-  
-};
-
-useEffect(()=> {
-  getTodos(); 
-},[currentPage,sortTypeSelected,status])
-
+  function editTodo (uuid, name) {
+    setValueEdit(name)
+    setEdit(uuid)
+  };
+  useEffect(()=> {
+    getTodos(); 
+  },[currentPage,sortTypeSelected,status])
 
   return (
     
@@ -117,7 +72,7 @@ useEffect(()=> {
      direction='column'
      justify='center'
      align='center'
-     w='520px'
+     maxW='700px'
      bg='black'
      h='670px'
      borderRadius='10px'
@@ -125,7 +80,7 @@ useEffect(()=> {
         
         <Header />
         <AddTodo 
-        submitAddHandler={submitAddHandler}
+        // submitAddHandler={submitAddHandler}
         setError={setError}
         setValue={setValue}
         getTodos={getTodos}
