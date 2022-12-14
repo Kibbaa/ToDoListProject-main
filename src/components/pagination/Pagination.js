@@ -31,7 +31,7 @@ function Pagination({numberOfPages, currentPage, setCurrentPage}) {
                { numberOfPages.map(number =>(
                  <Flex key={number} >
                    <Button
-                   color='pink.700'
+                   color={`${(currentPage === number) ? 'pink.800' : 'pink.300'}`}
                    fontSize='22px'
                    size='sm'
                    href="#" onClick={() => paginateHandler(number)}>

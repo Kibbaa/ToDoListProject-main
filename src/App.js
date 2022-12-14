@@ -20,7 +20,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState('')
   const [countTodos, setCountTodos] = useState('')
-  const [loading,setLoading] = useState()
+  const [loading,setLoading] = useState('')
 
   const errorClose = () =>{
     setError('')
@@ -112,7 +112,6 @@ function App() {
      minHeight='85%'
      pb='60px'
      pos='relative'
-
      >
         
         <Header />
@@ -127,6 +126,7 @@ function App() {
         <Alert></Alert>:
           
         <ButtonsSort
+        loading={loading}
         sortTypeSelected={sortTypeSelected}
         status={status}
         setCurrentPage={setCurrentPage}
@@ -145,7 +145,7 @@ function App() {
         setValueEdit={setValueEdit}
         valueEdit={valueEdit}
        />
-      {(numberOfPages.length > 0) ?(
+      {(numberOfPages.length > 1) ?(
         <Pagination
         setCurrentPage={setCurrentPage}
         numberOfPages={numberOfPages}

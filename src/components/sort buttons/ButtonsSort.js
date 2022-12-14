@@ -4,7 +4,7 @@ import { IconButton, Flex, HStack,Button } from "@chakra-ui/react";
 import { ArrowDownIcon,ArrowUpIcon } from '@chakra-ui/icons'
 
 
-function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,sortTypeSelected}){
+function ButtonsSort({loading, setSortTypeSelected, setStatus, setCurrentPage, status,sortTypeSelected}){
     
     
     const upHandler = () =>{
@@ -39,23 +39,24 @@ function ButtonsSort({ setSortTypeSelected, setStatus, setCurrentPage, status,so
             fontSize='25px' 
             icon={<ArrowUpIcon/>}
             color={`${(sortTypeSelected === 'asc') ? 'pink.800' : 'pink.300'}`} 
-            onClick={upHandler} >
+            onClick={upHandler}
+            disabled={loading} >
             </IconButton>
             <IconButton     
             fontSize='25px'
             icon={<ArrowDownIcon/>}
             color={`${(sortTypeSelected === 'desc') ? 'pink.800' : 'pink.300'}`} 
-            onClick={downHandler}>
-            
+            onClick={downHandler} 
+            disabled={loading}>
             </IconButton>
             </HStack>  
                 <HStack>
                     <Button color={`${(status === '') ? 'pink.800' : 'pink.300'}`} 
-                    onClick={setStatusAllHandler}>All</Button>
+                    onClick={setStatusAllHandler} disabled={loading}>All</Button>
                     <Button color={`${(status === 'undone') ? 'pink.800' : 'pink.300'}`} 
-                    onClick={setStatusUndoneHandler}>Open</Button>
+                    onClick={setStatusUndoneHandler} disabled={loading}>Open</Button>
                     <Button color={`${(status === 'done') ? 'pink.800' : 'pink.300'}`}
-                    onClick={setStatusDoneHandler}>Closed</Button>
+                    onClick={setStatusDoneHandler} disabled={loading}>Closed</Button>
                 </HStack>
                 </Flex>
     )

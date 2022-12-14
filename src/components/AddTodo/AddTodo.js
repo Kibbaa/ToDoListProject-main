@@ -3,18 +3,16 @@ import React, { useRef } from "react";
 import { postTask } from "../../services/instance";
 
 
-function AddTodo( { value, setValue ,getTodos,setError } ){
+function AddTodo( {getTodos,setError } ){
     const ref = useRef(null)
-    const inputHandler = (e) => {
-        setValue(e.target.value)
-        
-        };
 
     const  submitAddHandler = async (e) =>{
         e.preventDefault()
+        console.log(e);
         try{
             await postTask(ref)
             await getTodos()
+            ref.current.value = ''
         }catch(error){
             setError(error.message)
         }
@@ -23,9 +21,7 @@ function AddTodo( { value, setValue ,getTodos,setError } ){
 
     return(
         <form>
-            <HStack
-           
-            mx='10px'>
+            <HStack mx='10px'>
                 <Input
                 ref={ref}
                 fontWeight='bold'
@@ -34,13 +30,13 @@ function AddTodo( { value, setValue ,getTodos,setError } ){
                 size='lg'
                 focusBorderColor='pink.600'
                 placeholder="Add task"
-                 value={value} 
-                 onChange = {(e)=>inputHandler(e)}/>
-                 <Button
+                />
+                <Button
                  fontWeight='bold'
                  size='lg'
                  variant='solid'
-                 type='submit' onClick={submitAddHandler}> + Add</Button>
+                 type='submit' 
+                 onClick={submitAddHandler}> + Add</Button>
             </HStack>
         </form>
     )

@@ -20,7 +20,7 @@ function TodoList ({edit , todos, editTodo, setValueEdit, valueEdit,
         }
         {
             todos.map(item => <Todo
-                setError={setError} 
+            setError={setError} 
             getTodos={getTodos}
             task={item} key={item.uuid}
             valueEdit={valueEdit}
