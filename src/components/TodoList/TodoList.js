@@ -4,7 +4,7 @@ import Todo from "../Todo/Todo";
 import Loader from '../Loader/Loader'
 
 function TodoList ({edit , todos, editTodo, setValueEdit, valueEdit,
-      changeStatus,loading, setEdit, getTodos,setError
+      loading, setEdit, getTodos,setError
      }){  
 
     
@@ -14,7 +14,6 @@ function TodoList ({edit , todos, editTodo, setValueEdit, valueEdit,
        width='100%'
        maxWidth='820px'
        alignItems='center'
-    //    h='430px'
        flexDir='column'>
         { loading === true ? <Loader/> : null
         }

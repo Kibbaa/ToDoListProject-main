@@ -5,10 +5,10 @@ import { postTask } from "../../services/instance";
 
 function AddTodo( {getTodos,setError } ){
     const ref = useRef(null)
+    
 
     const  submitAddHandler = async (e) =>{
         e.preventDefault()
-        console.log(e);
         try{
             await postTask(ref)
             await getTodos()

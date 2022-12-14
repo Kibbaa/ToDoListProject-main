@@ -38,17 +38,6 @@ function App() {
         
     }
   }
-  // STATUS FUNC
-  function changeStatus(uuid){
-    const newTodo = todos.filter( item => {
-        if( item.uuid === uuid) {
-            item.done = !item.done
-        }
-        return item
-        
-    });
-    setTodo(newTodo)
-  };
 //PAGINATION
   const todosPerPage = 7;
   const numberOfPages = [];
@@ -62,10 +51,12 @@ function App() {
     setValueEdit(name)
     setEdit(uuid)
   };
+
   useEffect(()=>{
     if (todos.length < 1 && currentPage >= 1) {
 			setCurrentPage(1)}
   },[countTodos,todos.length])
+
   useEffect(()=> {
     getTodos(); 
   },[currentPage,sortTypeSelected,status])
