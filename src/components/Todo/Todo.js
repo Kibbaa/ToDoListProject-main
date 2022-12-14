@@ -86,8 +86,7 @@ function Todo({task,valueEdit,setValueEdit,setEdit,editTodo,edit,getTodos,setErr
                     fontWeight='bold'
                     color='white'
                     variant='flushed'
-                    // onBlur={handlerEditBlur}
-                    // onKeyDown={EditTodoHeandlerOnKey}
+                    
                     onKeyDown={EditTodoHandlerOnKey}
                     autoFocus
                     placeholder="Add edit task"
@@ -112,8 +111,6 @@ function Todo({task,valueEdit,setValueEdit,setEdit,editTodo,edit,getTodos,setErr
                     padding='10px' w={['xs','sm','md','2xl','3xl']} justifyContent='center' alignItems='center'
                     overflow="hidden">
                             <Flex
-                            // w={['xs','sm','md','2xl','3xl']}
-                            // maxWidth='200px'
                             width='100%'
                             outline='none'
                             fontWeight='700'
